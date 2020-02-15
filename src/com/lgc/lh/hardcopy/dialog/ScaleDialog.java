@@ -23,6 +23,7 @@ public class ScaleDialog extends Dialog {
 	protected void configureShell(Shell newShell) {
 		super.configureShell(newShell);
 		newShell.setText(TITLE); 
+		newShell.setSize(400, 400);
 	}
 	
 	@Override
@@ -34,6 +35,11 @@ public class ScaleDialog extends Dialog {
 	@Override
 	protected void createButtonsForButtonBar(Composite parent) {
 		createButton(parent, IDialogConstants.OK_ID, "Create page", true);
+	}
+	
+	@Override
+	protected boolean isResizable() {
+		return true;
 	}
 
 }

@@ -14,7 +14,7 @@ public class LaunchDialog {
 		
 		ScaleDialog scaleDialog = new ScaleDialog(shell);
 		scaleDialog.open();
-//		scaleDialog.
+
 	}
 
 }
