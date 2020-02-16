@@ -32,6 +32,9 @@ public class ScaleParamComposite extends Composite {
 	private Composite paperWidthComposite;
 	private Composite scaleComposite;
 	private Composite paperNameComposite;
+	
+	private String[] PRESETS_ITEMS = { "Presets", "Test2", "Test3", "Test4" };
+	private String[] MEASUREMENT_ITEMS = { "Inch", "Meter", "Feet", "Km" };
 
 	public ScaleParamComposite(Composite parent, int style) {
 		super(parent, style);
@@ -60,12 +63,14 @@ public class ScaleParamComposite extends Composite {
 		currentWellValueLabel = new Label(wellOptionComposite, SWT.NONE);
 		currentWellValueLabel.setLayoutData(gridData);
 		currentWellValueLabel.setText("6507/7-B-3 H");
+		currentWellValueLabel.setFont(new org.eclipse.swt.graphics.Font(null, "Times New Roman", 10, SWT.BOLD));
 		
         Image image = new Image(Display.getDefault(), "icon-test-32.png");
 		
 		openCorrEditorButton = new Button(wellOptionComposite, SWT.NONE);
 		openCorrEditorButton.setLayoutData(gridData);
 		openCorrEditorButton.setImage(image);
+		openCorrEditorButton.setBounds(20, 20, 35, 35);
 		// --------- End of first row ----------
 
 		// --------- Start of second row ----------
@@ -84,9 +89,14 @@ public class ScaleParamComposite extends Composite {
 		
 		presetsCombo = new Combo(paperWidthComposite, SWT.READ_ONLY);
 		presetsCombo.setLayoutData(new GridData(GridData.FILL, GridData.FILL, true, false));
+		presetsCombo.setItems(PRESETS_ITEMS);
+		presetsCombo.select(0);
 		
 		measurementCombo = new Combo(paperWidthComposite, SWT.READ_ONLY);
 		measurementCombo.setLayoutData(new GridData(GridData.FILL, GridData.FILL, true, false));
+		measurementCombo.setItems(MEASUREMENT_ITEMS);
+		measurementCombo.select(0);
+		
 		// --------- End of second row ----------
 		
 		GridLayout scaleLayout = new GridLayout(2, false);
@@ -116,6 +126,22 @@ public class ScaleParamComposite extends Composite {
 		paperNameText = new Text(paperNameComposite, SWT.BORDER);
 		paperNameText.setLayoutData(gridData);
 		
+	}
+
+	public void setCurrentWellLabel(Label currentWellLabel) {
+		this.currentWellLabel = currentWellLabel;
+	}
+
+	public void setPaperWidthText(Text paperWidthText) {
+		this.paperWidthText = paperWidthText;
+	}
+
+	public void setScaleText(Text scaleText) {
+		this.scaleText = scaleText;
+	}
+
+	public void setPaperNameText(Text paperNameText) {
+		this.paperNameText = paperNameText;
 	}
 
 }
