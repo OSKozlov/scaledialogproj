@@ -23,7 +23,7 @@ public class ScaleDialog extends Dialog {
 	protected void configureShell(Shell newShell) {
 		super.configureShell(newShell);
 		newShell.setText(TITLE); 
-		newShell.setSize(400, 400);
+		newShell.setSize(550, 400);
 	}
 	
 	@Override
