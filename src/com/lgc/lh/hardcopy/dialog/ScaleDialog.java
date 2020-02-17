@@ -26,9 +26,9 @@ public class ScaleDialog extends Dialog {
 	protected void configureShell(Shell newShell) {
 		super.configureShell(newShell);
 		newShell.setText(TITLE); 
-		newShell.setSize(550, 400);
+		newShell.setSize(550, 270);
 	}
-	
+
 	@Override
 	protected Control createDialogArea(Composite parent) {
 		composite = new ScaleParamComposite(parent, SWT.NONE);
@@ -76,7 +76,11 @@ public class ScaleDialog extends Dialog {
 
 	@Override
 	protected boolean isResizable() {
-		return true;
+		return false;
+	}
+
+	public ScaleParamComposite getComposite() {
+		return composite;
 	}
 
 }

@@ -65,8 +65,13 @@ public class ScaleParamComposite extends Composite {
 		currentWellValueLabel.setText("6507/7-B-3 H");
 		currentWellValueLabel.setFont(new org.eclipse.swt.graphics.Font(null, "Times New Roman", 10, SWT.BOLD));
 		
-        Image image = new Image(Display.getDefault(), "icon-test-32.png");
+        Image image = new Image(Display.getDefault(), "select_wells_24.png");
 		
+		gridData = new GridData(GridData.FILL, GridData.FILL, true, false);
+		gridData.widthHint = 25;
+		gridData.heightHint = 25;
+		gridData.horizontalIndent = 40;
+        
 		openCorrEditorButton = new Button(wellOptionComposite, SWT.NONE);
 		openCorrEditorButton.setLayoutData(gridData);
 		openCorrEditorButton.setImage(image);
@@ -79,16 +84,22 @@ public class ScaleParamComposite extends Composite {
 		paperWidthComposite.setLayout(paperWidthLayout);
 		
 		paperWidthLabel = new Label(paperWidthComposite, SWT.NONE);
-		paperWidthLabel.setText("&Paper width:"); 
+		paperWidthLabel.setText("&Paper width"); 
 		paperWidthLabel.setLayoutData(new GridData(GridData.END, GridData.CENTER, false, false));
+		paperWidthLabel.setFont(new org.eclipse.swt.graphics.Font(null, "Times New Roman", 10, SWT.BOLD));
 
 		paperWidthText = new Text(paperWidthComposite, SWT.BORDER);
 		gridData = new GridData(GridData.FILL, GridData.FILL, true, false);
-		gridData.widthHint = 200;
+		gridData.widthHint = 205;
+		gridData.heightHint = 20;
 		paperWidthText.setLayoutData(gridData);
 		
+		gridData = new GridData(GridData.FILL, GridData.FILL, true, false);
+		gridData.widthHint = 125;
+		gridData.heightHint = 20;
+		
 		presetsCombo = new Combo(paperWidthComposite, SWT.READ_ONLY);
-		presetsCombo.setLayoutData(new GridData(GridData.FILL, GridData.FILL, true, false));
+		presetsCombo.setLayoutData(gridData);
 		presetsCombo.setItems(PRESETS_ITEMS);
 		presetsCombo.select(0);
 		
@@ -106,9 +117,14 @@ public class ScaleParamComposite extends Composite {
 		gridData = new GridData(GridData.BEGINNING, GridData.CENTER, false, false);
 		
 		scaleLabel = new Label(scaleComposite, SWT.NONE);
-		scaleLabel.setText("&Scale:           "); 
+		scaleLabel.setText("&Scale           "); 
 		scaleLabel.setLayoutData(gridData);
+		scaleLabel.setFont(new org.eclipse.swt.graphics.Font(null, "Times New Roman", 10, SWT.BOLD));
 
+		gridData = new GridData(GridData.BEGINNING, GridData.CENTER, false, false);
+		gridData.widthHint = 205;
+		gridData.heightHint = 20;
+		gridData.horizontalIndent = 2;
 		scaleText = new Text(scaleComposite, SWT.BORDER);
 		scaleText.setLayoutData(gridData);
 		
@@ -117,11 +133,16 @@ public class ScaleParamComposite extends Composite {
 		paperNameComposite = new Composite(this, SWT.NONE);
 		paperNameComposite.setLayout(paperNameLayout);
 		
+		gridData = new GridData(GridData.BEGINNING, GridData.CENTER, false, false);
+		
 		paperNameLabel = new Label(paperNameComposite, SWT.NONE);
-		paperNameLabel.setText("&Paper name:");
+		paperNameLabel.setText("&Paper name");
 		paperNameLabel.setLayoutData(gridData);
+		paperNameLabel.setFont(new org.eclipse.swt.graphics.Font(null, "Times New Roman", 10, SWT.BOLD));
 
 		gridData = new GridData(GridData.BEGINNING, GridData.CENTER, false, false);
+		gridData.widthHint = 205;
+		gridData.heightHint = 20;
 		
 		paperNameText = new Text(paperNameComposite, SWT.BORDER);
 		paperNameText.setLayoutData(gridData);
@@ -132,16 +153,22 @@ public class ScaleParamComposite extends Composite {
 		this.currentWellLabel = currentWellLabel;
 	}
 
-	public void setPaperWidthText(Text paperWidthText) {
-		this.paperWidthText = paperWidthText;
+	public void setPaperWidthText(String text) {
+		if (!paperNameText.isDisposed()) {
+			paperWidthText.setText(text);
+		}
 	}
 
-	public void setScaleText(Text scaleText) {
-		this.scaleText = scaleText;
+	public void setScaleText(String text) {
+		if (!scaleText.isDisposed()) {
+			scaleText.setText(text);
+		}
 	}
 
-	public void setPaperNameText(Text paperNameText) {
-		this.paperNameText = paperNameText;
+	public void setPaperNameText(String text) {
+		if (!paperNameText.isDisposed()) {
+			paperNameText.setText(text);
+		}
 	}
 
 }

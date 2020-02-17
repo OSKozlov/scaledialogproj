@@ -11,6 +11,8 @@ public class ScaleDialogUIMgr {
 	
 	private static ScaleDialogUIMgr instance;
 	
+	private ScaleDialog scaleDialog;
+	
 	private ScaleDialogUIMgr() {
 	}
 
@@ -25,7 +27,20 @@ public class ScaleDialogUIMgr {
 		display = Display.getDefault();
 		shell = new Shell(display);
 		
-		ScaleDialog scaleDialog = new ScaleDialog(shell);
+		scaleDialog = new ScaleDialog(shell);
 		scaleDialog.open();
 	}
+	
+	public void setPaperWidth(String value) {
+		scaleDialog.getComposite().setPaperWidthText(value);
+	}
+	
+	public void setScale(String value) {
+		scaleDialog.getComposite().setScaleText(value);
+	}
+	
+	public void setPaperName(String value) {
+		scaleDialog.getComposite().setPaperWidthText(value);
+	}
+
 }
