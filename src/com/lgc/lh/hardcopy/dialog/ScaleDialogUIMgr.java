@@ -1,5 +1,6 @@
 package com.lgc.lh.hardcopy.dialog;
 
+import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
@@ -28,10 +29,16 @@ public class ScaleDialogUIMgr {
 		shell = new Shell(display);
 		
 		scaleDialog = new ScaleDialog(shell);
-		scaleDialog.open();
+		scaleDialog.create();
+		scaleDialog.setBlockOnOpen(true);
+//		scaleDialog.getShell().setVisible(true);
+		if (scaleDialog.open() == Window.OK) {
+			System.err.println("### TEST ###");
+		}
 	}
 	
 	public void setPaperWidth(String value) {
+		System.err.println("### composite 3 = " + scaleDialog.getComposite());
 		scaleDialog.getComposite().setPaperWidthText(value);
 	}
 	

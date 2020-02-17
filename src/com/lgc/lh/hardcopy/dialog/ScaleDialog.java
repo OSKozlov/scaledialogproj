@@ -32,6 +32,7 @@ public class ScaleDialog extends Dialog {
 	@Override
 	protected Control createDialogArea(Composite parent) {
 		composite = new ScaleParamComposite(parent, SWT.NONE);
+		System.err.println("### composite = " + composite.hashCode());
 		return composite;
 	}
 	
@@ -80,6 +81,7 @@ public class ScaleDialog extends Dialog {
 	}
 
 	public ScaleParamComposite getComposite() {
+		System.err.println("### composite 2 = " + composite.hashCode());
 		return composite;
 	}
 
