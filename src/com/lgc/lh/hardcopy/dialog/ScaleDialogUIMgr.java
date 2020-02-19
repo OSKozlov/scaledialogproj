@@ -1,6 +1,5 @@
 package com.lgc.lh.hardcopy.dialog;
 
-import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
@@ -23,22 +22,22 @@ public class ScaleDialogUIMgr {
 		}
 		return instance;
 	}
-
-	public void openDialog() {
+	
+	public void createDialog() {
 		display = Display.getDefault();
 		shell = new Shell(display);
 		
 		scaleDialog = new ScaleDialog(shell);
 		scaleDialog.create();
-		scaleDialog.setBlockOnOpen(true);
-//		scaleDialog.getShell().setVisible(true);
-		if (scaleDialog.open() == Window.OK) {
-			System.err.println("### TEST ###");
+	}
+
+	public void openDialog() {
+		if (scaleDialog != null) {
+			scaleDialog.open();
 		}
 	}
 	
 	public void setPaperWidth(String value) {
-		System.err.println("### composite 3 = " + scaleDialog.getComposite());
 		scaleDialog.getComposite().setPaperWidthText(value);
 	}
 	
@@ -47,7 +46,11 @@ public class ScaleDialogUIMgr {
 	}
 	
 	public void setPaperName(String value) {
-		scaleDialog.getComposite().setPaperWidthText(value);
+		scaleDialog.getComposite().setPaperNameText(value);
+	}
+	
+	public void setCurrentWellName(String value) {
+		scaleDialog.getComposite().setCurrentWellLabel(value);
 	}
 
 }

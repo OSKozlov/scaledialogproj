@@ -8,7 +8,9 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
 
 public class ScaleParamComposite extends Composite {
@@ -33,19 +35,45 @@ public class ScaleParamComposite extends Composite {
 	private Composite scaleComposite;
 	private Composite paperNameComposite;
 	
-	private String[] PRESETS_ITEMS = { "Presets", "Test2", "Test3", "Test4" };
+	private String[] PRESETS_ITEMS = { "Presets", "1:100", "1:300", "1:500", 
+												  "1:700", "1:1000", "1:1200",
+												  "1:2400", "1:2500", "1:4800",
+												  "1:5000", "1:10000", "1:12000",
+												  "1:24000", "1:25000", "1:48000",
+												  "1:50000", "1:96000", "1:100000",
+												  "1:144000", "1:192000", "1:200000",
+												  "1:250000", "1:288000", "1:500000",
+												  "1:576000", "1:1000000" };
 	private String[] MEASUREMENT_ITEMS = { "Inch", "Meter", "Feet", "Km" };
 
 	public ScaleParamComposite(Composite parent, int style) {
 		super(parent, style);
 		createContent();
+		
+		initListeners();
+	}
+	
+	private void initListeners() {
+		openCorrEditorButton.addListener(SWT.Selection, new Listener() {
+
+			@Override
+			public void handleEvent(Event event) {
+				System.err.println("### Test Well button");
+			}
+		});
 	}
 
 	private void createContent() {
 		GridLayout layout = new GridLayout(1, false);
 		setLayout(layout);
 
-		// --------- Start of first row ----------
+		createWellOptionComponent();
+		createPaperWidthComponent();
+		createScaleComponent();
+		createWellNameComponent();
+	}
+	
+	private void createWellOptionComponent() {
 		GridLayout wellOptionLayout = new GridLayout(3, false);
 		wellOptionComposite = new Composite(this, SWT.NONE);
 		wellOptionComposite.setLayout(wellOptionLayout);
@@ -62,7 +90,6 @@ public class ScaleParamComposite extends Composite {
 
 		currentWellValueLabel = new Label(wellOptionComposite, SWT.NONE);
 		currentWellValueLabel.setLayoutData(gridData);
-		currentWellValueLabel.setText("6507/7-B-3 H");
 		currentWellValueLabel.setFont(new org.eclipse.swt.graphics.Font(null, "Times New Roman", 10, SWT.BOLD));
 		
         Image image = new Image(Display.getDefault(), "select_wells_24.png");
@@ -76,9 +103,11 @@ public class ScaleParamComposite extends Composite {
 		openCorrEditorButton.setLayoutData(gridData);
 		openCorrEditorButton.setImage(image);
 		openCorrEditorButton.setBounds(20, 20, 35, 35);
-		// --------- End of first row ----------
+		openCorrEditorButton.setToolTipText("Option to open up correlation editor wells");
+	}
+	
+	private void createPaperWidthComponent() {
 
-		// --------- Start of second row ----------
 		GridLayout paperWidthLayout = new GridLayout(4, false);
 		paperWidthComposite = new Composite(this, SWT.NONE);
 		paperWidthComposite.setLayout(paperWidthLayout);
@@ -89,7 +118,7 @@ public class ScaleParamComposite extends Composite {
 		paperWidthLabel.setFont(new org.eclipse.swt.graphics.Font(null, "Times New Roman", 10, SWT.BOLD));
 
 		paperWidthText = new Text(paperWidthComposite, SWT.BORDER);
-		gridData = new GridData(GridData.FILL, GridData.FILL, true, false);
+		GridData gridData = new GridData(GridData.FILL, GridData.FILL, true, false);
 		gridData.widthHint = 205;
 		gridData.heightHint = 20;
 		paperWidthText.setLayoutData(gridData);
@@ -107,14 +136,14 @@ public class ScaleParamComposite extends Composite {
 		measurementCombo.setLayoutData(new GridData(GridData.FILL, GridData.FILL, true, false));
 		measurementCombo.setItems(MEASUREMENT_ITEMS);
 		measurementCombo.select(0);
-		
-		// --------- End of second row ----------
-		
+	}
+	
+	private void createScaleComponent() {
 		GridLayout scaleLayout = new GridLayout(2, false);
 		scaleComposite = new Composite(this, SWT.NONE);
 		scaleComposite.setLayout(scaleLayout);
 		
-		gridData = new GridData(GridData.BEGINNING, GridData.CENTER, false, false);
+		GridData gridData = new GridData(GridData.BEGINNING, GridData.CENTER, false, false);
 		
 		scaleLabel = new Label(scaleComposite, SWT.NONE);
 		scaleLabel.setText("&Scale           "); 
@@ -127,13 +156,14 @@ public class ScaleParamComposite extends Composite {
 		gridData.horizontalIndent = 2;
 		scaleText = new Text(scaleComposite, SWT.BORDER);
 		scaleText.setLayoutData(gridData);
-		
-		
+	}
+	
+	private void createWellNameComponent() {
 		GridLayout paperNameLayout = new GridLayout(2, false);
 		paperNameComposite = new Composite(this, SWT.NONE);
 		paperNameComposite.setLayout(paperNameLayout);
 		
-		gridData = new GridData(GridData.BEGINNING, GridData.CENTER, false, false);
+		GridData gridData = new GridData(GridData.BEGINNING, GridData.CENTER, false, false);
 		
 		paperNameLabel = new Label(paperNameComposite, SWT.NONE);
 		paperNameLabel.setText("&Paper name");
@@ -146,29 +176,22 @@ public class ScaleParamComposite extends Composite {
 		
 		paperNameText = new Text(paperNameComposite, SWT.BORDER);
 		paperNameText.setLayoutData(gridData);
-		
 	}
 
-	public void setCurrentWellLabel(Label currentWellLabel) {
-		this.currentWellLabel = currentWellLabel;
+	public void setCurrentWellLabel(String text) {
+		currentWellValueLabel.setText(text);
 	}
 
 	public void setPaperWidthText(String text) {
-		if (!paperNameText.isDisposed()) {
-			paperWidthText.setText(text);
-		}
+		paperWidthText.setText(text);
 	}
 
 	public void setScaleText(String text) {
-		if (!scaleText.isDisposed()) {
-			scaleText.setText(text);
-		}
+		scaleText.setText(text);
 	}
 
 	public void setPaperNameText(String text) {
-		if (!paperNameText.isDisposed()) {
-			paperNameText.setText(text);
-		}
+		paperNameText.setText(text);
 	}
 
 }

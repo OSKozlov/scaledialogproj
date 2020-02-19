@@ -8,6 +8,8 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 
 import com.lgc.lh.hardcopy.panel.ScaleParamComposite;
@@ -17,9 +19,21 @@ public class ScaleDialog extends Dialog {
 	private final static String TITLE = "Set paper to Well length";
 	
 	private ScaleParamComposite composite;
+	
+	private Button button;
 
 	public ScaleDialog(Shell parentShell) {
 		super(parentShell);
+	}
+	
+	private void initListeners() {
+		button.addListener(SWT.Selection, new Listener() {
+			
+			@Override
+			public void handleEvent(Event event) {
+				System.err.println("Test button!!!");
+			}
+		});
 	}
 
 	@Override
@@ -32,13 +46,11 @@ public class ScaleDialog extends Dialog {
 	@Override
 	protected Control createDialogArea(Composite parent) {
 		composite = new ScaleParamComposite(parent, SWT.NONE);
-		System.err.println("### composite = " + composite.hashCode());
 		return composite;
 	}
 	
 	@Override
 	protected void createButtonsForButtonBar(Composite parent) {
-//		createButton(parent, IDialogConstants.OK_ID, "Create page", true);
 	}
 	
 	@Override
@@ -60,7 +72,7 @@ public class ScaleDialog extends Dialog {
 	    buttonBar.setFont(parent.getFont());
 
 	    // place a button in the center
-	    final Button button = new Button(buttonBar, SWT.PUSH);
+	    button = new Button(buttonBar, SWT.PUSH);
 	    button.setText("Create page");
 
 	    final GridData leftButtonData = new GridData(SWT.CENTER, SWT.CENTER, true, true);
@@ -71,6 +83,8 @@ public class ScaleDialog extends Dialog {
 	    // add the dialog's button bar to the right
 	    final Control buttonControl = super.createButtonBar(buttonBar);
 	    buttonControl.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, true, false));
+	    
+	    initListeners();
 
 	    return buttonBar;
 	}
@@ -81,7 +95,6 @@ public class ScaleDialog extends Dialog {
 	}
 
 	public ScaleParamComposite getComposite() {
-		System.err.println("### composite 2 = " + composite.hashCode());
 		return composite;
 	}
 
